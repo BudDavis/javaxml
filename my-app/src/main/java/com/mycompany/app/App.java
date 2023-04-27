@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import primer.po.*;
+//import primer.po.*;
 
 /**
  * Hello world!
@@ -18,13 +18,13 @@ import primer.po.*;
  */
 public class App {
     public static void main(String[] args) {
-        JAXBContext jc = JAXBContext.newInstance("primer.po");
-        Unmarshaller u = jc.createUnmarshaller();
-        PurchaseOrder po = (PurchaseOrder) u.unmarshal(new FileInputStream("po.xml"));
+        //JAXBContext jc = JAXBContext.newInstance("primer.po");
+        //Unmarshaller u = jc.createUnmarshaller();
+        //PurchaseOrder po = (PurchaseOrder) u.unmarshal(new FileInputStream("po.xml"));
 
-        Marshaller m = jc.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        m.marshal(po, System.out);
+        //Marshaller m = jc.createMarshaller();
+        //m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        //m.marshal(po, System.out);
 
         System.out.println("Hello World!");
     }
