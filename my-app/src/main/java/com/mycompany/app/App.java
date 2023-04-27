@@ -1,16 +1,8 @@
 package com.mycompany.app;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-//import primer.po.*;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
 
 /**
  * Hello world!
@@ -18,13 +10,69 @@ import javax.xml.bind.Unmarshaller;
  */
 public class App {
     public static void main(String[] args) {
-        //JAXBContext jc = JAXBContext.newInstance("primer.po");
-        //Unmarshaller u = jc.createUnmarshaller();
-        //PurchaseOrder po = (PurchaseOrder) u.unmarshal(new FileInputStream("po.xml"));
+        try {
+            File inputFile = new File("../c172p.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-        //Marshaller m = jc.createMarshaller();
-        //m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        //m.marshal(po, System.out);
+            NodeList nList = doc.getChildNodes();
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                System.out.println("\nChild :" + nNode.getNodeName());
+                NodeList n = nNode.getChildNodes();
+                for (int i = 0; i < n.getLength(); i++) {
+                    Node nnNode = n.item(i);
+                    System.out.println("    " + i + "  " + nnNode.getNodeName());
+                    NodeList nn = nnNode.getChildNodes();
+                    for (int j = 0; i < nn.getLength(); j++) {
+                        Node nnnNode = nn.item(j);
+                        if (nnnNode != null) {
+                            System.out.println("     " + j + "  " + nnnNode.getNodeName());
+                        }
+                    }
+                }
+            }
+            /*
+             * NodeList nList = doc.getElementsByTagName("student");
+             * System.out.println("----------------------------");
+             * 
+             * for (int temp = 0; temp < nList.getLength(); temp++) {
+             * Node nNode = nList.item(temp);
+             * System.out.println("\nCurrent Element :" + nNode.getNodeName());
+             * 
+             * if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+             * Element eElement = (Element) nNode;
+             * System.out.println("Student roll no : "
+             * + eElement.getAttribute("rollno"));
+             * System.out.println("First Name : "
+             * + eElement
+             * .getElementsByTagName("firstname")
+             * .item(0)
+             * .getTextContent());
+             * System.out.println("Last Name : "
+             * + eElement
+             * .getElementsByTagName("lastname")
+             * .item(0)
+             * .getTextContent());
+             * System.out.println("Nick Name : "
+             * + eElement
+             * .getElementsByTagName("nickname")
+             * .item(0)
+             * .getTextContent());
+             * System.out.println("Marks : "
+             * + eElement
+             * .getElementsByTagName("marks")
+             * .item(0)
+             * .getTextContent());
+             * }
+             * }
+             */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Hello World!");
     }
